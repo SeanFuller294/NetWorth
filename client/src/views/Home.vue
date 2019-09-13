@@ -32,6 +32,7 @@
 
 <script>
 import Post from "./Post";
+
 export default {
   name: "Home",
   data() {
