@@ -16,6 +16,9 @@ export default {
   methods: {
     search() {
       this.$store.findUsersByEmail();
+    },
+    logout() {
+      this.$store.dispatch("logout");
     }
   }
 };
