@@ -14,6 +14,8 @@ let _schema = new Schema({
   location: { type: String, required: true },
   phoneNumber: { type: Number, required: true },
   work: { type: String, required: true },
+  image: { type: String },
+  netWorth: { type: Number, default: 0 },
   hash: { type: String, required: true }
 }, { timestamps: true })
 

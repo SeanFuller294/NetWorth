@@ -14,6 +14,6 @@ const _schema = new Schema({
 
 export default class PostService {
   get repository() {
-    return mongoose.model('Posts', _schema)
+    return mongoose.model('Post', _schema)
   }
 }

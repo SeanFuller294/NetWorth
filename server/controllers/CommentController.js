@@ -7,41 +7,29 @@ import { userInfo } from 'os';
 let _postService = new PostService().repository
 let _commentService = new CommentService().repository
 
-export default class PostController {
+export default class CommentController {
   constructor() {
     this.router = express.Router()
-      .get('/:id', this.getAllById)
-      .get('/:id', this.getById)
+      .get('/:id', this.getAllComments)
       .use(Authorize.authenticated)
       .post('', this.create)
       .delete('/:id', this.delete)
   }
-
-  async getAllById(req, res, next) {
+  async getAllComments(req, res, next) {
     try {
-      let data = await _postService.find({})
+      let data = await _commentService.find({})
       return res.send(data)
-    } catch (error) { next(error) }
-  }
-
-  async getById(req, res, next) {
-    try {
-      let data = await _postService.findById(req.params.id)
-      if (!data) {
-        throw new Error("Invalid Id")
-      }
-      res.send(data)
     } catch (error) { next(error) }
   }
 
   async create(req, res, next) {
     req.body.id = req.session.uid
-    let data = await _postService.create(req.body)
+    let data = await _commentService.create(req.body)
     res.send(data)
   }
 
   async delete(req, res, next) {
-    let data = await _postService.findOneAndRemove({ _id: req.params.id, author: req.session.uid })
+    let data = await _commentService.findOneAndRemove({ _id: req.params.id, author: req.session.uid })
     if (!data) {
       throw new Error("Denied: invalid id")
     }

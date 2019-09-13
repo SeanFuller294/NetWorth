@@ -32,9 +32,13 @@ server.use(bp.urlencoded({
 import AuthController from './controllers/AuthController'
 import Session from "./middleware/session"
 import ProfileController from './controllers/ProfileController'
+import PostController from './controllers/PostController'
+import CommentController from './controllers/CommentController'
 server.use(new Session().express)
 server.use('/account', new AuthController().router)
 server.use('/api/user', new ProfileController().router)
+server.use('/api/posts', new PostController().router)
+server.use('/api/comments', new CommentController().router)
 
 
 //YOUR ROUTES HERE!!!!!!
