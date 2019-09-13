@@ -8,6 +8,7 @@ export default class ProfileController {
   constructor() {
     this.router = express.Router()
 
+      .use(Authorize.authenticated)
       .get('/:id', this.getById)
   }
 
