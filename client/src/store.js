@@ -27,11 +27,18 @@ export default new Vuex.Store({
     setUser(state, user) {
       state.user = user
     },
+    resetState(state, user) {
+      state.user = {}
+    },
+
     setPosts(state, posts) {
       state.posts = posts
     },
     setUserSearchResults(state, users) {
       state.userSearchResults = users
+    },
+    setActivePost(state, post) {
+      state.post = post
     }
   },
   actions: {
@@ -46,6 +53,7 @@ export default new Vuex.Store({
       }
     },
     async login({ commit, dispatch }, creds) {
+      debugger
       try {
         let user = await AuthService.Login(creds)
         commit('setUser', user)
@@ -67,7 +75,14 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- USERS --
-
+    async getUser({ commit, dispatch }) {
+      try {
+        let res = await _api.get('users/:userId')
+        commit('setUser', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async findUsersByEmail({ commit, dispatch }, query) {
       try {
         //NOTE the query for this method will be the user name
@@ -78,15 +93,72 @@ export default new Vuex.Store({
         console.error(error)
       }
 
-    }
+    },
     //#endregion
 
     //#region -- POSTS --
-
+    async getPosts({ commit, dispatch }) {
+      try {
+        let res = await _api.get('posts')
+        commit('setPosts', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getPostById({ commit, dispatch }, payload) {
+      try {
+        let res = await _api.get(`posts/${payload.postId}`)
+        commit('setActivePost', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async deletePost({ dispatch }, payload) {
+      try {
+        let res = await _api.delete('posts/' + payload)
+        dispatch('getPosts')
+        router.push({ name: 'home' })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async addPost({ dispatch }, payload) {
+      try {
+        let res = await _api.post('posts', payload)
+        dispatch('getPosts')
+      } catch (error) {
+        console.error(error)
+      }
+    },
     //#endregion
 
-
     //#region -- COMMENTS --
+    async getComments({ commit, dispatch }) {
+      try {
+        let res = await _api.get('posts/:postId/comments')
+        commit('setComments', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async deleteComment({ dispatch }, payload) {
+      try {
+        let res = await _api.delete('posts/:postId/' + payload)
+        dispatch('getComments')
+        router.push({ name: 'home' })
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async addComment({ dispatch }, payload) {
+      try {
+        let res = await _api.post('posts/:postId/comments', payload)
+        dispatch('getComments')
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
 
     //#endregion
   }

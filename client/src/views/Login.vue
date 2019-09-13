@@ -9,6 +9,9 @@
       <input type="text" v-model="newUser.name" placeholder="name" />
       <input type="email" v-model="newUser.email" placeholder="email" />
       <input type="password" v-model="newUser.password" placeholder="password" />
+      <input type="text" v-model=" newUser.work" placeholder="work" />
+      <input type="text" v-model=" newUser.location" placeholder="location" />
+      <input type="number" v-model=" newUser.phoneNumber" placeholder="1234567890" />
       <button class="btn btn-warning" type="submit">Create Account</button>
     </form>
     <div class="action" @click="loginForm = !loginForm">
@@ -47,6 +50,7 @@ export default {
     },
     loginUser() {
       this.$store.dispatch("login", this.creds);
+      this.$router.push({ name: "home" });
     }
   }
 };

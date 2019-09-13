@@ -18,8 +18,8 @@
     <div class="row">
       <div class="col-2">
         <ul>
-          <li @click="showFollowers()">Followers</li>
-          <li @click="showFollowing()">Following</li>
+          <li @click="follow()">Follow</li>
+          <li @click="Unfollow()">Unfollow</li>
           <li @click="createPost()">Create Post</li>
         </ul>
       </div>
@@ -53,8 +53,5 @@ export default {
 <style>
 ul {
   text-align: left !important;
-}
-img {
-  height: 200px;
 }
 </style>
