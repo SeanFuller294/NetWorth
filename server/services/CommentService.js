@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
 const _schema = new Schema({
-  author: { type: String, required: true },
+  author: { type: ObjectId, ref: 'User', required: true },
   body: { type: String, required: true },
   postId: { type: ObjectId, ref: 'posts', required: true }
 })
