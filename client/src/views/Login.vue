@@ -51,7 +51,7 @@ export default {
     },
     loginUser() {
       this.$store.dispatch("login", this.creds);
-      this.$router.push({ name: "home" });
+      // this.$router.push({ name: "home" });
     }
   }
 };

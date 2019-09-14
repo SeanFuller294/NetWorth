@@ -87,7 +87,18 @@ export default new Vuex.Store({
     //     console.error(error)
     //   }
     // },
+    async findUserById({ commit, dispatch }, query) {
 
+      try {
+        //NOTE the query for this method will be the user name
+        let res = await _api.get('user/find?_id=' + query)
+        commit('setUserSearchResults', res.data)
+      } catch (error) {
+        //TODO handle this catch
+        console.error(error)
+      }
+
+    },
     async findUsersByEmail({ commit, dispatch }, query) {
 
       try {
@@ -95,6 +106,7 @@ export default new Vuex.Store({
         let res = await _api.get('user/find?email=' + query)
         console.log(res.data);
         commit('setUserSearchResults', res.data)
+        dispatch('getPosts')
         router.push({ name: "profile", params: { id: res.data._id } })
       } catch (error) {
         //TODO handle this catch
@@ -107,6 +119,7 @@ export default new Vuex.Store({
     //#region -- POSTS --
     async getPosts({ commit, dispatch }, userId) {
       try {
+        debugger
         let res = await _api.get('user/' + userId + "/posts")
         commit('setPosts', res.data)
       } catch (error) {
