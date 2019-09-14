@@ -12,6 +12,7 @@
       <input type="text" v-model=" newUser.work" placeholder="work" />
       <input type="text" v-model=" newUser.location" placeholder="location" />
       <input type="number" v-model=" newUser.phoneNumber" placeholder="1234567890" />
+      <input type="text" v-model=" newUser.image" placeholder="Enter Image URL" />
       <button class="btn btn-warning" type="submit">Create Account</button>
     </form>
     <div class="action" @click="loginForm = !loginForm">

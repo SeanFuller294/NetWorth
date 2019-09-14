@@ -13,7 +13,9 @@ export default class UserController {
 
     async findUserByQuery(req, res, next) {
         try {
-            let users = await _userService.find(req.query).select('name email')
+            let users = await _userService.find(req.query).select('name email work phoneNumber location image netWorth')
+            console.log(users);
+
             res.send(users)
         } catch (error) { next(error) }
     }

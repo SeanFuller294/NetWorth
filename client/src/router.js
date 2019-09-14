@@ -6,6 +6,8 @@ import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 // @ts-ignore
 import Post from './views/Post.vue'
+// @ts-ignore
+import Profile from './views/Profile.vue'
 
 Vue.use(Router)
 
@@ -27,12 +29,17 @@ export default new Router({
       component: Login
     },
     {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
+    },
+    {
+      path: '/find?email=:userId',
+      name: 'profile',
+    },
+    {
       path: "*",
       redirect: '/'
     },
-    {
-      path: '/:userId',
-      name: 'profile',
-    }
   ]
 })

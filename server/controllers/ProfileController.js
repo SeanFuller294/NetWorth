@@ -9,6 +9,7 @@ export default class ProfileController {
     this.router = express.Router()
 
       .use(Authorize.authenticated)
+      .get('/find', this.findUserByQuery)
       .get('/:id', this.getById)
   }
 
@@ -18,5 +19,13 @@ export default class ProfileController {
       res.send(data)
     } catch (error) { next(error) }
 
+  }
+
+
+  async findUserByQuery(req, res, next) {
+    try {
+      let users = await _userService.find(req.query).select('name email')
+      res.send(users)
+    } catch (error) { next(error) }
   }
 }

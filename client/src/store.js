@@ -18,10 +18,12 @@ let _api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
+    requestedUser: {},
     posts: [],
     comments: [],
     post: {},
-    userSearchResults: []
+    userSearchResults: [],
+    activeUser: {}
   },
   mutations: {
     setUser(state, user) {
@@ -34,11 +36,14 @@ export default new Vuex.Store({
     setPosts(state, posts) {
       state.posts = posts
     },
-    setUserSearchResults(state, users) {
-      state.userSearchResults = users
+    setUserSearchResults(state, requestedUser) {
+      state.userSearchResults = requestedUser
     },
     setActivePost(state, post) {
       state.post = post
+    },
+    setActiveUser(state, activeUser) {
+      state.activeUser = activeUser
     }
   },
   actions: {
@@ -75,18 +80,20 @@ export default new Vuex.Store({
     //#endregion
 
     //#region -- USERS --
-    async getUser({ commit, dispatch }) {
-      try {
-        let res = await _api.get('users/:userId')
-        commit('setUser', res.data)
-      } catch (error) {
-        console.error(error)
-      }
-    },
+    // async getActiveUser({ commit, dispatch }) {
+    //   try {
+    //     let res = await _api.get('user/:userId')
+    //     commit('setActiveUser', res.data)
+    //   } catch (error) {
+    //     console.error(error)
+    //   }
+    // },
+
     async findUsersByEmail({ commit, dispatch }, query) {
+
       try {
         //NOTE the query for this method will be the user name
-        let res = await _api.get('users/find?email=' + query)
+        let res = await _api.get('user/find?email=' + query)
         commit('setUserSearchResults', res.data)
       } catch (error) {
         //TODO handle this catch

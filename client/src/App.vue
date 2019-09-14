@@ -3,8 +3,16 @@
     <router-link to="/home">Home</router-link>|
     <button class="btn btn-danger" @click="logout()">Logout</button> |
     <div class="input-group mb-3">
-      <input id="search-bar" type="email" class="form-control" placeholder="example.abc.com" />
-      <button class="input-group-text" id="Search" @click="search()">Search</button>
+      <form @submit.prevent="search">
+        <input
+          id="search-bar"
+          type="email"
+          v-model="email"
+          class="form-control"
+          placeholder="example.abc.com"
+        />
+        <button class="input-group-text" id="Search" type="submit">Search</button>
+      </form>
     </div>
     <router-view />
   </div>
@@ -13,9 +21,15 @@
 <script>
 export default {
   name: "App",
+  data() {
+    return {
+      email: ""
+    };
+  },
   methods: {
     search() {
-      this.$store.findUsersByEmail();
+      this.$store.dispatch("findUsersByEmail", this.email);
+      this.$router.push("/profile");
     },
     logout() {
       this.$store.dispatch("logout");

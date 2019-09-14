@@ -2,10 +2,10 @@
   <div class="home conatainer-fluid">
     <div class="row">
       <div class="col-3">
-        <img :src="user.image" />
+        <img :src="user.image || 'http://placehold.it/200x200'" />
       </div>
-      <div class="col-6">
-        <netWorth />
+      <div class="col-6 border">
+        <h1>{{user.netWorth}}</h1>
       </div>
       <div class="col-3" id="bio">
         <h5>{{user.name}}</h5>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Posts from "./Post";
+import Posts from "../components/Posts";
 
 export default {
   name: "Home",
@@ -40,10 +40,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getPosts");
+    this.$store.dispatch("getActiveUser");
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.requestedUser;
     }
   },
   methods: {}
