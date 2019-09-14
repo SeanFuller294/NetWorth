@@ -22,7 +22,7 @@ export default new Vuex.Store({
     posts: [],
     comments: [],
     post: {},
-    userSearchResults: [],
+    userSearchResults: {},
     activeUser: {}
   },
   mutations: {
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       state.posts = posts
     },
     setUserSearchResults(state, requestedUser) {
-      state.userSearchResults = requestedUser
+      state.requestedUser = requestedUser
     },
     setActivePost(state, post) {
       state.post = post
@@ -58,7 +58,6 @@ export default new Vuex.Store({
       }
     },
     async login({ commit, dispatch }, creds) {
-      debugger
       try {
         let user = await AuthService.Login(creds)
         commit('setUser', user)
@@ -94,7 +93,9 @@ export default new Vuex.Store({
       try {
         //NOTE the query for this method will be the user name
         let res = await _api.get('user/find?email=' + query)
-        commit('setUserSearchResults', res.data)
+        console.log(res.data);
+
+        commit('setUserSearchResults', res.data[0])
       } catch (error) {
         //TODO handle this catch
         console.error(error)
@@ -129,7 +130,8 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async addPost({ dispatch }, payload) {
+    async createPost({ dispatch }, payload) {
+      debugger
       try {
         let res = await _api.post('posts', payload)
         dispatch('getPosts')

@@ -24,7 +24,7 @@ export default class ProfileController {
 
   async findUserByQuery(req, res, next) {
     try {
-      let users = await _userService.find(req.query).select('name email')
+      let users = await _userService.find(req.query).select('name email work phoneNumber location image netWorth')
       res.send(users)
     } catch (error) { next(error) }
   }

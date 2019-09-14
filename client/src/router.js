@@ -34,10 +34,6 @@ export default new Router({
       component: Profile
     },
     {
-      path: '/find?email=:userId',
-      name: 'profile',
-    },
-    {
       path: "*",
       redirect: '/'
     },

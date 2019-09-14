@@ -20,11 +20,16 @@
         <ul>
           <li @click="showFollowers()">Followers</li>
           <li @click="showFollowing()">Following</li>
-          <li @click="createPost()">Create Post</li>
         </ul>
+        <CreatePostModal />
+        <button
+          class="btn btn-success"
+          data-toggle="modal"
+          data-target="#create-post-modal"
+        >Create Post</button>
       </div>
       <div class="col-10">
-        <Posts @click="viewPost()" />
+        <Posts v-for="post in posts" :postProp="post" :key="post._id" />
       </div>
     </div>
   </div>
@@ -32,21 +37,23 @@
 
 <script>
 import Posts from "../components/Posts";
+import CreatePostModal from "../components/CreatePostModal";
 
 export default {
   name: "Home",
   data() {
     return {};
   },
-  mounted() {
-    this.$store.dispatch("getPosts");
-  },
   computed: {
     user() {
       return this.$store.state.user;
     }
   },
-  methods: {}
+  methods: {},
+  components: {
+    Posts,
+    CreatePostModal
+  }
 };
 </script>
 
