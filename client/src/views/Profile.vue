@@ -20,11 +20,10 @@
         <ul>
           <li @click="follow()">Follow</li>
           <li @click="Unfollow()">Unfollow</li>
-          <li @click="createPost()">Create Post</li>
         </ul>
       </div>
       <div class="col-10">
-        <Posts @click="viewPost()" />
+        <Posts v-for="post in posts" :postProp="post" :key="post._id" />
       </div>
     </div>
   </div>
@@ -34,19 +33,26 @@
 import Posts from "../components/Posts";
 
 export default {
-  name: "Home",
+  name: "Profile",
+  props: ["id"],
   data() {
     return {};
   },
   mounted() {
-    this.$store.dispatch("getPosts");
+    this.$store.dispatch("getPosts", this.id);
   },
   computed: {
     user() {
       return this.$store.state.requestedUser;
+    },
+    posts() {
+      return this.$store.state.posts;
     }
   },
-  methods: {}
+  methods: {},
+  components: {
+    Posts
+  }
 };
 </script>
 

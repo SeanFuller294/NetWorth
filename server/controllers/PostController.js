@@ -10,7 +10,7 @@ let _commentService = new CommentService().repository
 export default class PostController {
   constructor() {
     this.router = express.Router()
-      .get('/:id', this.getAllById)
+      .get('', this.getAllById)
       .get('/:id', this.getById)
       .use(Authorize.authenticated)
       .post('', this.create)
@@ -35,9 +35,14 @@ export default class PostController {
   }
 
   async create(req, res, next) {
-    req.body.author = req.session.uid
-    let data = await _postService.create(req.body)
-    res.send(data)
+    try {
+      req.body.author = req.session.uid
+      let data = await _postService.create(req.body)
+      res.send(data)
+    } catch (err) {
+      console.error(err)
+      next(err)
+    }
   }
 
   async delete(req, res, next) {

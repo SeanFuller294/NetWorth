@@ -1,8 +1,10 @@
 import express from "express";
 import UserService from "../services/UserService.js";
 import { Authorize } from "../middleware/authorize.js";
+import PostService from "../services/PostService.js";
 
 let _userService = new UserService().repository
+let _postService = new PostService().repository
 
 export default class ProfileController {
   constructor() {
@@ -11,6 +13,7 @@ export default class ProfileController {
       .use(Authorize.authenticated)
       .get('/find', this.findUserByQuery)
       .get('/:id', this.getById)
+      .get('/:id/posts', this.getPostsByUserId)
   }
 
   async getById(req, res, next) {
@@ -24,8 +27,16 @@ export default class ProfileController {
 
   async findUserByQuery(req, res, next) {
     try {
-      let users = await _userService.find(req.query).select('name email work phoneNumber location image netWorth')
-      res.send(users)
+      let user = await _userService.findOne(req.query).select('name email work phoneNumber location image netWorth')
+      if (!user) { throw new Error("No user found") }
+      res.send(user)
+    } catch (error) { next(error) }
+  }
+
+  async getPostsByUserId(req, res, next) {
+    try {
+      let posts = await _postService.find({ author: req.params.id })
+      res.send(posts)
     } catch (error) { next(error) }
   }
 }

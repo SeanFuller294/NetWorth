@@ -9,7 +9,7 @@ const _schema = new Schema({
   likes: { type: Number, required: true, default: 0 },
   dislikes: { type: Number, required: true, default: 0 },
   commentCounter: { type: Number, required: true, default: 0 },
-  voters: [{ type: ObjectId, ref: 'user', unique: true }]
+  voters: [{ type: ObjectId, ref: 'user' }]
 })
 
 export default class PostService {

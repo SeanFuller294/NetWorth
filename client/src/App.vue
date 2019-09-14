@@ -29,7 +29,6 @@ export default {
   methods: {
     search() {
       this.$store.dispatch("findUsersByEmail", this.email);
-      this.$router.push("/profile");
     },
     logout() {
       this.$store.dispatch("logout");

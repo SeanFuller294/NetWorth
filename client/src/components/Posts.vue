@@ -1,7 +1,7 @@
 <template>
   <div class="posts" @click="viewPost()">
     <h1>{{postProp.title}}</h1>
-    <h1>{{postProp.author}}</h1>
+    <h1></h1>
     <p>{{postProp.body}}</p>
   </div>
 </template>
@@ -14,14 +14,7 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.$store.dispatch("getPosts");
-  },
-  computed: {
-    post() {
-      return this.$store.state.posts;
-    }
-  },
+  computed: {},
   methods: {
     viewPost() {
       this.$router.push({

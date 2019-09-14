@@ -29,13 +29,14 @@ export default new Router({
       component: Login
     },
     {
-      path: '/profile',
+      path: '/profile/:id',
       name: 'profile',
+      props: true,
       component: Profile
     },
     {
       path: "*",
-      redirect: '/'
+      redirect: '/home'
     },
   ]
 })

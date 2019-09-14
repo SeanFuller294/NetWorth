@@ -41,12 +41,18 @@ import CreatePostModal from "../components/CreatePostModal";
 
 export default {
   name: "Home",
+  mounted() {
+    this.$store.dispatch("getPosts", this.user._id);
+  },
   data() {
     return {};
   },
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    posts() {
+      return this.$store.state.posts;
     }
   },
   methods: {},
