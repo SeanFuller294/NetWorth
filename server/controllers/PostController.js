@@ -35,7 +35,7 @@ export default class PostController {
   }
 
   async create(req, res, next) {
-    req.body.id = req.session.uid
+    req.body.author = req.session.uid
     let data = await _postService.create(req.body)
     res.send(data)
   }
