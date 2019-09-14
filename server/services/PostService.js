@@ -6,9 +6,9 @@ const _schema = new Schema({
   title: { type: String, required: true },
   author: { type: ObjectId, ref: 'user', required: true },
   body: { type: String, required: true },
-  likes: { type: Number, required: true },
-  dislikes: { type: Number, required: true },
-  commentCounter: { type: Number, required: true },
+  likes: { type: Number, required: true, default: 0 },
+  dislikes: { type: Number, required: true, default: 0 },
+  commentCounter: { type: Number, required: true, default: 0 },
   voters: [{ type: ObjectId, ref: 'user', unique: true }]
 })
 

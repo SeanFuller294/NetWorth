@@ -51,6 +51,7 @@
 
 
 <script>
+import user from this.$store.state.user
 export default {
   name: "create-post-modal",
   data() {
@@ -61,6 +62,7 @@ export default {
   computed: {},
   methods: {
     createPost() {
+      newPost.author = user.id
       this.$store.dispatch("createPost", this.newPost);
       this.newPost = {};
     }
